@@ -1,0 +1,12 @@
+dependencies{
+    implementation(group: 'io.vavr', name: 'vavr', version: '0.9.0')
+    implementation(group: 'com.google.guava', name: 'guava', version: '21.0', because: 'Mojang provides version 21.0')
+    implementation(group: 'com.google.inject', name: 'guice', version: '5.0.1')
+    implementation(group: 'com.scalified', name: 'tree', version: '0.2.2')
+    implementation(group: 'org.javatuples', name: 'javatuples', version: '1.2')
+    implementation(group: 'commons-lang', name: 'commons-lang', version: '2.4')
+    implementation('de.ruedigermoeller:fst:3.0.3')
+    implementation('org.reflections:reflections:0.10.2')
+    implementation('com.google.code.gson:gson:2.9.0')
+}
+tasks.register("prepareKotlinBuildScriptModel"){}

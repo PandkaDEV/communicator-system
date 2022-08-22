@@ -1,0 +1,33 @@
+plugins {
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+group 'io.pieszku.messenger'
+version '1.0-SNAPSHOT'
+
+allprojects{
+    group 'io.pieszku.messenger'
+    version '1.0-SNAPSHOT'
+    apply plugin: 'java-library'
+
+    java {
+        withSourcesJar()
+    }
+}
+repositories {
+    mavenCentral()
+}
+subprojects{
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url = uri('https://repo.maven.apache.org/maven2/')
+        }
+        maven {
+            url = uri('https://hub.spigotmc.org/nexus/content/repositories/snapshots/')
+        }
+    }
+    apply plugin: 'com.github.johnrengelman.shadow'
+}
