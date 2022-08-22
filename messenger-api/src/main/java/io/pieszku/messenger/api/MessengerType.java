@@ -2,7 +2,7 @@ package io.pieszku.messenger.api;
 
 public enum MessengerType {
     REDIS(3000, "https://redis.io"),
-    NATS(2000, "https://nats.io"),
+    NATS(2000, "nats://"),
     SOCKET(1000, "unknown");
 
     private final int timeoutConnection;

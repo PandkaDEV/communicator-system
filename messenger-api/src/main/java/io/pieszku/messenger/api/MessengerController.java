@@ -8,37 +8,28 @@ public abstract class MessengerController {
 
     private final MessengerType type;
     private Injector injector;
+    private final Messenger messenger;
 
-    public MessengerController(MessengerType type) {
+    public MessengerController(Messenger messenger, MessengerType type) {
         this.type = type;
+        this.messenger = messenger;
     }
     public void load(String handlersPackageName){
         this.injector = Guice.createInjector(new DependencyInjectionModule());
         MessengerChannelHandlerScanner scanner = new MessengerChannelHandlerScanner(handlersPackageName);
         MessengerChannelHandlerMapper mapper = new MessengerChannelHandlerMapper(scanner, this.injector);
         MessengerChannelHandlerInjector injector = new MessengerChannelHandlerInjector();
-        injector.inject(new Messenger() {
-            @Override
-            public void subscribe(String channelName, MessengerChannelHandlerExecutor executor) {
-
-            }
-
-            @Override
-            public void reply(MessengerPacket packet) {
-
-            }
-
-            @Override
-            public void send(String channelName, MessengerPacket packet) {
-
-            }
-
-            @Override
-            public <T> void sendRequestPacket(String channelName, MessengerRequestPacket requestPacket, MessengerResponsePacket<T> responsePacket) {
-
-            }
-        }, mapper);
+        injector.inject(messenger, mapper);
     }
+
+    public Injector getInjector() {
+        return injector;
+    }
+
+    public Messenger getMessenger() {
+        return messenger;
+    }
+
     public MessengerType getType() {
         return type;
     }

@@ -1,7 +1,6 @@
 package io.pieszku.messenger.api;
 
 import com.scalified.tree.TreeNode;
-import io.pieszku.messenger.api.test.TestPacket;
 import org.javatuples.Pair;
 
 public class MessengerChannelHandlerInjector {
@@ -13,8 +12,7 @@ public class MessengerChannelHandlerInjector {
     }
     private void registerHandlerExecutor(Messenger messenger, MessengerHandlerInfo info, MessengerChannelHandlerMapper mapper){
         MessengerChannelHandlerExecutor executor = new MessengerChannelHandlerExecutor(messenger, info, null, mapper);
+        messenger.subscribe(info.getChannel(), executor);
         this.subscriberCache.add(executor);
-        executor.onMessage(info.getChannel(), new TestPacket());
-        System.out.println(info.getChannel().getName());
     }
 }

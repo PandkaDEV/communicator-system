@@ -10,17 +10,18 @@ public class MessengerControllerAPI extends MessengerController{
         return instance;
     }
 
-    public MessengerControllerAPI(MessengerType type, String handlerPackageName) {
-        super(type);
+    public MessengerControllerAPI(Messenger messenger, MessengerType type, String handlerPackageName) {
+        super(messenger, type);
         instance = this;
         this.channelCache = new MessengerChannelCache();
         this.subscriberCache = new MessengerSubscriberCache();
         this.channelCache.add(new MessengerChannel("test_messenger"));
+        this.channelCache.add(new MessengerChannel("response_messenger"));
         this.load(handlerPackageName);
     }
 
     public static void main(String[] args) {
-        new MessengerControllerAPI(MessengerType.NATS, "io.pieszku.messenger.api.test");
+      //  new MessengerControllerAPI(MessengerType.NATS, "io.pieszku.messenger.api.test");
     }
 
     public MessengerChannelCache getChannelCache() {

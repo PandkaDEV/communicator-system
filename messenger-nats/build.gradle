@@ -2,4 +2,5 @@ dependencies {
     implementation(project(':messenger-api'))
     implementation('io.nats:jnats:2.15.3')
     implementation('org.reflections:reflections:0.10.2')
+    implementation('de.ruedigermoeller:fst:2.56')
 }
