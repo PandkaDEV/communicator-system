@@ -7,5 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MessengerPacketCallback {
+public @interface MessengerPacketArgument {
+    String name();
 }

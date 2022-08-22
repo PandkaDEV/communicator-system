@@ -7,7 +7,7 @@ import io.pieszku.messenger.api.test.TestPacket;
 @MessengerHandler(channelName = "test_messenger", receivedPackets = {TestPacket.class}, async = true)
 public class TestHandler {
     @MessengerPacketHandler(type = TestPacket.class)
-    public void onHandle(@MessengerPacketSender Messenger messenger, @MessengerPacketReceived(callback = true) TestPacket packet, @MessengerPacketCallback long callbackId){
+    public void onHandle(@MessengerPacketSender Messenger messenger, @MessengerPacketReceived(callback = true) TestPacket packet, @MessengerPacketArgument(name = "callbackId") long callbackId){
         System.out.println("HANDLE");
         System.out.println(callbackId);
     }

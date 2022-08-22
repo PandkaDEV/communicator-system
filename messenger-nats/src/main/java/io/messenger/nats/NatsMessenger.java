@@ -29,8 +29,7 @@ public class NatsMessenger implements Messenger {
     public void subscribe(MessengerChannel channel, MessengerChannelHandlerExecutor executor) {
         this.connection.createDispatcher().subscribe(channel.getName(), message -> {
             MessengerPacket packet = MessengerPacketSerializer.decodePacket(message.getData());
-            var clazzCheck = Arrays.stream(executor.getInfo().getReceivedPackets()).anyMatch(clazz -> packet.getClass().isAssignableFrom(clazz));
-            if(!clazzCheck) return;
+             if(!Arrays.stream(executor.getInfo().getReceivedPackets()).anyMatch(clazz -> packet.getClass().isAssignableFrom(clazz))) return;
             executor.onMessage(channel, packet);
         });
     }

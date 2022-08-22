@@ -3,15 +3,13 @@ package io.pieszku.messenger.api;
 import com.scalified.tree.TreeNode;
 import io.pieszku.messenger.api.exception.MessengerHandlerNotFoundException;
 import io.pieszku.messenger.api.exception.MessengerHandlerParamsNotFoundException;
-import io.pieszku.messenger.api.stereotype.MessengerPacketCallback;
-import io.pieszku.messenger.api.stereotype.MessengerPacketHandler;
-import io.pieszku.messenger.api.stereotype.MessengerPacketReceived;
-import io.pieszku.messenger.api.stereotype.MessengerPacketSender;
+import io.pieszku.messenger.api.stereotype.*;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 public class MessengerChannelHandlerExecutor extends MessengerChannelHandlerDispatcher implements MessengerChannelSubscriber {
@@ -43,6 +41,10 @@ public class MessengerChannelHandlerExecutor extends MessengerChannelHandlerDisp
             return false;
         }
         try {
+            if(handlerInfo.isAsync()){
+                //code
+       //         new ScheduledThreadPoolExecutor(1).schedule(())
+            }
             handlerInfo.getMethod().invoke(handlerInfo.getInstance(), params);
         } catch (Exception e) {
             throw new MessengerHandlerParamsNotFoundException(String.format("Messenger handler not found paramas in class(%s) error %s", packet.getClass().getSimpleName(), e.getMessage()));
@@ -77,10 +79,13 @@ public class MessengerChannelHandlerExecutor extends MessengerChannelHandlerDisp
                 } else {
                     params.add(packet);
                 }
-            }else if(annotation.annotationType().equals(MessengerPacketCallback.class)){
-                if (packet instanceof MessengerRequestPacket) {
-                    MessengerRequestPacket requestPacket = (MessengerRequestPacket) packet;
-                    params.add(requestPacket.getCallbackId());
+            }else if(annotation.annotationType().equals(MessengerPacketArgument.class)){
+                MessengerPacketArgument argument = (MessengerPacketArgument) annotation;
+                if(argument.name().equalsIgnoreCase("callbackId")){
+                    if (packet instanceof MessengerRequestPacket) {
+                        MessengerRequestPacket requestPacket = (MessengerRequestPacket) packet;
+                        params.add(requestPacket.getCallbackId());
+                    }
                 }
             }
         });

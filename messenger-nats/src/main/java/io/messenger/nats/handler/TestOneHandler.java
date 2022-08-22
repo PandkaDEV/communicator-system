@@ -8,6 +8,6 @@ import io.pieszku.messenger.api.stereotype.*;
 public class TestOneHandler {
     @MessengerPacketHandler(type = TestPacketOne.class)
     public void onHandleOne(@MessengerPacketSender Messenger messenger, @MessengerPacketReceived(callback = false) TestPacketOne packet){
-        System.out.println(packet.getText());
+    //    System.out.println(packet.getText());
     }
 }

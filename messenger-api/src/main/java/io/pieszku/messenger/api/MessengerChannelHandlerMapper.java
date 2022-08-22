@@ -34,9 +34,6 @@ public class MessengerChannelHandlerMapper {
                 Pair<MessengerChannel, MessengerHandlerInfo> rootHandler = new Pair<>(channel, handlerInfo);
                 handlerInfo.setInstance(instance);
 
-                if(!handlerInfo.isAsync()){
-                    throw new NotImplementedException("Async handlers are not support yet.");
-                }
                 Method handlerMethod = Arrays.stream(clazz.getMethods())
                         .filter(method -> method.isAnnotationPresent(MessengerPacketHandler.class))
                         .findFirst()
