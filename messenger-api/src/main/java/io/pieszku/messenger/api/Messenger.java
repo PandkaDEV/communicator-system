@@ -1,5 +1,7 @@
 package io.pieszku.messenger.api;
 
+import java.util.concurrent.CompletableFuture;
+
 public interface Messenger {
 
     /**
@@ -15,20 +17,20 @@ public interface Messenger {
      * @param channel
      * @param executor
      */
-    void subscribe(MessengerChannel channel, MessengerChannelHandlerExecutor executor);
+    void subscribe(Channel channel, ChannelHandlerExecutor executor);
 
     /**
      * @deprecated Sends a packet to the response channel
      * @param packet
      */
-    void reply(MessengerPacket packet);
+    void reply(RequestPacket packet);
 
     /**
      * @deprecated Sends a packet to the select channel
      * @param channelName
      * @param packet
      */
-    void send(String channelName, MessengerPacket packet);
+    void send(String channelName, Packet packet);
 
     /**
      * @deprecated Sends a packet to the select channel and have ability to response with the help of messenger#reply(responsePacket);
@@ -37,5 +39,5 @@ public interface Messenger {
      * @param responsePacket
      * @param <T>
      */
-    <T> void sendRequestPacket(String channelName, MessengerRequestPacket requestPacket, MessengerResponsePacket<T> responsePacket);
+    <T> CompletableFuture<T> sendRequestPacket(String channelName, RequestPacket requestPacket, ResponsePacket<T> responsePacket);
 }
