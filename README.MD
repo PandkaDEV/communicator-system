@@ -1,7 +1,8 @@
 Description:
 ```This was created to make it easier when creating new messengers```
 ## HOW TO USE?
-###How to send packets or receive?
+#### How to send packets or receive?
+
 Default#send:
 ```java
 this.messenger.send("channelNameReceived", new TestPacket());
