@@ -6,7 +6,6 @@ public class ControllerAPI extends Controller {
 
     private static ControllerAPI instance;
     private final ChannelCache channelCache;
-    private final SubscriberCache subscriberCache;
 
     public static ControllerAPI getInstance() {
         return instance;
@@ -16,7 +15,6 @@ public class ControllerAPI extends Controller {
         super(messenger, type);
         instance = this;
         this.channelCache = new ChannelCache();
-        this.subscriberCache = new SubscriberCache();
         Arrays.stream(channels).forEach(this.channelCache::add);
         this.load(handlerPackageName);
     }
@@ -24,7 +22,4 @@ public class ControllerAPI extends Controller {
         return channelCache;
     }
 
-    public SubscriberCache getSubscriberCache() {
-        return subscriberCache;
-    }
 }
