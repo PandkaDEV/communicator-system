@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ChannelHandlerMapper {
 
     private final ChannelHandlerScanner scanner;
-    private final ChannelCache channelCache = ControllerAPI.getInstance().getChannelCache();
+    private final ChannelCache channelCache = MessengerController.getInstance().getChannelCache();
     private final TreeNode<Pair<Channel, HandlerInfo>> handlerMap = new ArrayMultiTreeNode<>(null);
     private final Injector injector;
 

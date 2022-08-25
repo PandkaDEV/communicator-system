@@ -2,16 +2,16 @@ package io.pieszku.messenger.api;
 
 import java.util.Arrays;
 
-public class ControllerAPI extends Controller {
+public class MessengerController extends Controller {
 
-    private static ControllerAPI instance;
+    private static MessengerController instance;
     private final ChannelCache channelCache;
 
-    public static ControllerAPI getInstance() {
+    public static MessengerController getInstance() {
         return instance;
     }
 
-    public ControllerAPI(Messenger messenger, MessengerType type, String handlerPackageName, Channel... channels) {
+    public MessengerController(Messenger messenger, MessengerType type, String handlerPackageName, Channel... channels) {
         super(messenger, type);
         instance = this;
         this.channelCache = new ChannelCache();
