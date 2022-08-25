@@ -21,12 +21,9 @@ Request#send:
 ```java
 this.messenger.sendRequestPacket("test_messenger",
         new TestPacket(),
-        new ResponsePacket<TestPacketResponse>() {
-    @Override
-    public void accept(TestPacketResponse packet) {
-        System.out.println(packet.getText());
-    }
-});
+        (ResponsePacket<TestPacketResponse>) packet -> {
+           System.out.println(packet.getText());
+        });
 ```
 Request#receive:
 ```java
