@@ -44,17 +44,17 @@ public class ChannelHandlerExecutor extends ChannelHandlerDispatcher implements 
         if (params.length == 1 && params[0] == null) {
             return false;
         }
+        if (handlerInfo.isAsync()) {
+            CompletableFuture.runAsync(() -> {
+                try {
+                    handlerInfo.getMethod().invoke(handlerInfo.getInstance(), params);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    throw new HandlerParamsNotFoundException(String.format("Messenger handler not found paramas in class(%s) error %s", packet.getClass().getSimpleName(), e.getMessage()));
+                }
+            });
+            return false;
+        }
         try {
-            if(handlerInfo.isAsync()){
-                CompletableFuture.runAsync(() -> {
-                    try {
-                        handlerInfo.getMethod().invoke(handlerInfo.getInstance(), params);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        throw new HandlerParamsNotFoundException(String.format("Messenger handler not found paramas in class(%s) error %s", packet.getClass().getSimpleName(), e.getMessage()));
-                    }
-                });
-                return false;
-            }
             handlerInfo.getMethod().invoke(handlerInfo.getInstance(), params);
         } catch (Exception e) {
             throw new HandlerParamsNotFoundException(String.format("Messenger handler not found paramas in class(%s) error %s", packet.getClass().getSimpleName(), e.getMessage()));

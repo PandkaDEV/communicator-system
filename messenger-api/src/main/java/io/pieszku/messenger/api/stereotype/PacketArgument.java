@@ -8,5 +8,9 @@ import java.lang.annotation.Target;
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PacketArgument {
+
+    /**
+     * @deprecated Options choice: "channelReply" - used for example to nats-messenger, "callbackId" - used for example to redis-messenger
+     */
     String name();
 }

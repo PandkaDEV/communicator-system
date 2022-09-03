@@ -8,10 +8,11 @@ import io.pieszku.messenger.api.test.TestPacketResponse;
 @Handler(channelName = "test_messenger", receivedPackets = {TestPacket.class}, async = true)
 public class TestHandler {
     @PacketHandler(type = TestPacket.class)
-    public void onHandle(@PacketSender Messenger messenger, @PacketReceived(callback = true) TestPacket packet, @PacketArgument(name = "channelReply") String channelReply){
+    public void onHandle(@PacketSender Messenger messenger, @PacketReceived(callback = true) TestPacket packet, @PacketArgument(name = "channelReply") String channelReply) {
         System.out.println("HANDLE");
         TestPacketResponse responsePacket = new TestPacketResponse("KUPA");
         responsePacket.setReplyChannel(channelReply);
+        responsePacket.setErrorMessage("GOEWNO");
         messenger.reply(responsePacket);
     }
 }

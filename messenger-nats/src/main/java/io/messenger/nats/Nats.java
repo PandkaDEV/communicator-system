@@ -4,7 +4,6 @@ import io.nats.client.Connection;
 import io.nats.client.Options;
 import io.pieszku.messenger.api.*;
 import io.pieszku.messenger.api.exception.ConnectionNotFoundException;
-import io.pieszku.messenger.api.exception.SendPacketException;
 
 import java.time.Duration;
 import java.util.Arrays;
@@ -52,7 +51,7 @@ public class Nats implements Messenger {
         var messagePacket = this.connection.requestWithTimeout(channelName, PacketSerializer.encodePacket(requestPacket), Duration.ofMillis(5L))
                 .thenApply(message -> (RequestPacket) PacketSerializer.decodePacket(message.getData()))
                 .whenComplete((data, throwable) -> {
-                    if (throwable == null && data != null && data.getErrorMessage() != null) {
+                    if (data != null && data.getErrorMessage() != null) {
                         System.out.printf("The packet: %s, returned the wrong message: %s%n", requestPacket.getClass().getSimpleName(), data.getErrorMessage());
                         return;
                     }
