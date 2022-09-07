@@ -36,5 +36,29 @@ public class TestHandler {
     }
 }
 ```
+Queue#send:
+```java
+        List<String> texts = new ArrayList<>();
+        IntStream.range(0, 1823).forEach(i -> {
+            texts.add("x:" + i);
+        });
+        var queueData = new PacketQueueData<>(TestQueuePacket.class, controller.getMessenger(),
+                "test_01", String.class, texts, 113, 200);
+        queueData.start();
+```
+Queue#receive:
+```java
+@Handler(channelName = "test_01", receivedPackets = {TestQueuePacket.class}, async = true)
+public class TestHandler {
 
+    private int count = 0;
+
+    @PacketHandler(type = TestQueuePacket.class)
+    public void onHandle(@PacketSender Messenger messenger, @PacketReceived(callback = false) TestQueuePacket packet) {
+        List<String> texts = PacketQueueSerializer.encode(packet);
+        this.count += texts.size();
+        System.out.println("RECEIVED: " + texts.size() + " entities, actual: " + count);
+    }
+}
+```
 
