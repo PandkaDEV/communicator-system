@@ -1,3 +1,35 @@
+Dependency:
+
+MAVEN
+```java
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<dependency>
+	    <groupId>com.github.Piechuuu</groupId>
+	    <artifactId>communicator-system</artifactId>
+	    <version>fd3e2ea880</version>
+	</dependency>
+```
+
+GRADLE
+```java
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+	dependencies {
+	        implementation 'com.github.Piechuuu:communicator-system:Tag'
+	}
+```
+
 Description:
 ```This was created to make it easier when creating new messengers```
 #### How to send packets or receive?
